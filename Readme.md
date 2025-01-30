@@ -1,6 +1,6 @@
 This project requires two specific folders:
 
-data/ – This folder should contain the avazu data set, available at https://www.kaggle.com/c/avazu-ctr-prediction/data. Note that it it not need to run the python notebook "Experiments synthetic data"
+data/ – This folder should contain the avazu data set file "train.gz", available at https://www.kaggle.com/c/avazu-ctr-prediction/data. Note that it it not need to run the python notebook "Experiments synthetic data"
 plots/ – This folder will store the generated plots.
 
 The experiments can then be replicated by running the notebooks in the following order.
