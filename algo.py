@@ -14,22 +14,24 @@ class Algo:
 
 
     def update_upper_bound(self,system,t):
-        #print("here with",self.name)
-        self.upper_bound = system.sum_rewards/system.sample_count
-        if self.version=="unknown horizon":
-            self.upper_bound+=np.sqrt(np.log(system.K*(t+1)**2/self.delta)/system.sample_count)
-        else:
+        with np.errstate(divide='ignore', invalid='ignore'):
+            #print("here with",self.name)
+            self.upper_bound = system.sum_rewards/system.sample_count
+            if self.version=="unknown horizon":
+                self.upper_bound+=np.sqrt(np.log(system.K*(t+1)**2/self.delta)/system.sample_count)
+            else:
 
-            self.upper_bound+=np.sqrt(np.log(system.K/self.delta)/system.sample_count)
+                self.upper_bound+=np.sqrt(np.log(system.K/self.delta)/system.sample_count)
 
     def update_lower_bound(self,system,t):
-        lower_bound = system.sum_rewards/system.sample_count
-        if self.version=="unknown horizon":
-            lower_bound-=np.sqrt(np.log(system.K*(t+1)**2/self.delta)/system.sample_count)
-        else:
-            lower_bound-=np.sqrt(np.log(system.K/self.delta)/system.sample_count)
-        lower_bound=np.nan_to_num(lower_bound)
-        self.lower_bound=np.maximum(self.lower_bound,lower_bound)
+        with np.errstate(divide='ignore', invalid='ignore'):
+            lower_bound = system.sum_rewards/system.sample_count
+            if self.version=="unknown horizon":
+                lower_bound-=np.sqrt(np.log(system.K*(t+1)**2/self.delta)/system.sample_count)
+            else:
+                lower_bound-=np.sqrt(np.log(system.K/self.delta)/system.sample_count)
+            lower_bound=np.nan_to_num(lower_bound)
+            self.lower_bound=np.maximum(self.lower_bound,lower_bound)
 
     def choice(self,system,t):
         self.update_upper_bound(system,t)
